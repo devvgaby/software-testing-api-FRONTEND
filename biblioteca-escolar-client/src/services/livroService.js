@@ -5,7 +5,7 @@ export async function listarLivros() {
   return data;
 }
 
-export async function obterLivro(id) {
+export async function buscarLivroPorId(id) {
   const { data } = await api.get(`/livros/${id}`);
   return data;
 }
@@ -20,6 +20,6 @@ export async function atualizarLivro(id, payload) {
   return data;
 }
 
-export async function removerLivro(id) {
+export async function deletarLivro(id) {
   await api.delete(`/livros/${id}`);
 }

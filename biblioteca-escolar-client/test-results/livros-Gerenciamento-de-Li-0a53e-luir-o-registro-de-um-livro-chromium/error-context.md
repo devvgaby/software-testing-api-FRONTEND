@@ -1,0 +1,1276 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: livros.spec.js >> Gerenciamento de Livros (E2E) >> Deve excluir o registro de um livro
+- Location: e2e\livros.spec.js:59:3
+
+# Error details
+
+```
+Error: expect(locator).not.toBeVisible() failed
+
+Locator:  getByText('Livro Teste 1779195125856')
+Expected: not visible
+Received: visible
+Timeout:  5000ms
+
+Call log:
+  - Expect "not toBeVisible" with timeout 5000ms
+  - waiting for getByText('Livro Teste 1779195125856')
+    9 × locator resolved to <strong>Livro Teste 1779195125856</strong>
+      - unexpected value "visible"
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - heading [level=1]
+      - generic [ref=e6]:
+        - generic "admin@sistema.com" [ref=e7]: Administrador
+        - button "Alternar tema" [ref=e8]:
+          - img [ref=e9]
+        - button "Sair" [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+  - generic [ref=e16]:
+    - generic [ref=e17]:
+      - heading "Biblioteca" [level=1] [ref=e18]
+      - paragraph [ref=e19]: Gerencie seu acervo de livros
+    - generic [ref=e20]:
+      - generic [ref=e21]: Erro ao excluir livro.
+      - button "×" [ref=e22] [cursor=pointer]
+    - generic [ref=e24]:
+      - img [ref=e26]
+      - textbox "Buscar por ID do livro..." [ref=e29]
+      - button "Buscar" [ref=e30] [cursor=pointer]
+    - table [ref=e32]:
+      - rowgroup [ref=e33]:
+        - row "ID Título Autor Ações" [ref=e34]:
+          - columnheader "ID" [ref=e35]
+          - columnheader "Título" [ref=e36]
+          - columnheader "Autor" [ref=e37]
+          - columnheader "Ações" [ref=e38]
+      - rowgroup [ref=e39]:
+        - row "#1 Pair Programming Martin Code" [ref=e40]:
+          - cell "#1" [ref=e41]
+          - cell "Pair Programming" [ref=e42]:
+            - strong [ref=e43]: Pair Programming
+          - cell "Martin Code" [ref=e44]
+          - cell [ref=e45]:
+            - button "Editar livro" [ref=e46] [cursor=pointer]:
+              - img [ref=e47]
+            - button "Excluir livro" [ref=e49] [cursor=pointer]:
+              - img [ref=e50]
+        - row "#2 Clean Code Martin Code" [ref=e53]:
+          - cell "#2" [ref=e54]
+          - cell "Clean Code" [ref=e55]:
+            - strong [ref=e56]: Clean Code
+          - cell "Martin Code" [ref=e57]
+          - cell [ref=e58]:
+            - button "Editar livro" [ref=e59] [cursor=pointer]:
+              - img [ref=e60]
+            - button "Excluir livro" [ref=e62] [cursor=pointer]:
+              - img [ref=e63]
+        - row "#3 Clean Code Martin Code" [ref=e66]:
+          - cell "#3" [ref=e67]
+          - cell "Clean Code" [ref=e68]:
+            - strong [ref=e69]: Clean Code
+          - cell "Martin Code" [ref=e70]
+          - cell [ref=e71]:
+            - button "Editar livro" [ref=e72] [cursor=pointer]:
+              - img [ref=e73]
+            - button "Excluir livro" [ref=e75] [cursor=pointer]:
+              - img [ref=e76]
+        - row "#4 Clean Code Martin Code" [ref=e79]:
+          - cell "#4" [ref=e80]
+          - cell "Clean Code" [ref=e81]:
+            - strong [ref=e82]: Clean Code
+          - cell "Martin Code" [ref=e83]
+          - cell [ref=e84]:
+            - button "Editar livro" [ref=e85] [cursor=pointer]:
+              - img [ref=e86]
+            - button "Excluir livro" [ref=e88] [cursor=pointer]:
+              - img [ref=e89]
+        - row "#5 Clean Code Martin Code" [ref=e92]:
+          - cell "#5" [ref=e93]
+          - cell "Clean Code" [ref=e94]:
+            - strong [ref=e95]: Clean Code
+          - cell "Martin Code" [ref=e96]
+          - cell [ref=e97]:
+            - button "Editar livro" [ref=e98] [cursor=pointer]:
+              - img [ref=e99]
+            - button "Excluir livro" [ref=e101] [cursor=pointer]:
+              - img [ref=e102]
+        - row "#6 Clean Code Martin Code" [ref=e105]:
+          - cell "#6" [ref=e106]
+          - cell "Clean Code" [ref=e107]:
+            - strong [ref=e108]: Clean Code
+          - cell "Martin Code" [ref=e109]
+          - cell [ref=e110]:
+            - button "Editar livro" [ref=e111] [cursor=pointer]:
+              - img [ref=e112]
+            - button "Excluir livro" [ref=e114] [cursor=pointer]:
+              - img [ref=e115]
+        - row "#7 Clean Code Martin Code" [ref=e118]:
+          - cell "#7" [ref=e119]
+          - cell "Clean Code" [ref=e120]:
+            - strong [ref=e121]: Clean Code
+          - cell "Martin Code" [ref=e122]
+          - cell [ref=e123]:
+            - button "Editar livro" [ref=e124] [cursor=pointer]:
+              - img [ref=e125]
+            - button "Excluir livro" [ref=e127] [cursor=pointer]:
+              - img [ref=e128]
+        - row "#8 Clean Code Martin Code" [ref=e131]:
+          - cell "#8" [ref=e132]
+          - cell "Clean Code" [ref=e133]:
+            - strong [ref=e134]: Clean Code
+          - cell "Martin Code" [ref=e135]
+          - cell [ref=e136]:
+            - button "Editar livro" [ref=e137] [cursor=pointer]:
+              - img [ref=e138]
+            - button "Excluir livro" [ref=e140] [cursor=pointer]:
+              - img [ref=e141]
+        - row "#9 Clean Code Martin Code" [ref=e144]:
+          - cell "#9" [ref=e145]
+          - cell "Clean Code" [ref=e146]:
+            - strong [ref=e147]: Clean Code
+          - cell "Martin Code" [ref=e148]
+          - cell [ref=e149]:
+            - button "Editar livro" [ref=e150] [cursor=pointer]:
+              - img [ref=e151]
+            - button "Excluir livro" [ref=e153] [cursor=pointer]:
+              - img [ref=e154]
+        - row "#10 Clean Code Martin Code" [ref=e157]:
+          - cell "#10" [ref=e158]
+          - cell "Clean Code" [ref=e159]:
+            - strong [ref=e160]: Clean Code
+          - cell "Martin Code" [ref=e161]
+          - cell [ref=e162]:
+            - button "Editar livro" [ref=e163] [cursor=pointer]:
+              - img [ref=e164]
+            - button "Excluir livro" [ref=e166] [cursor=pointer]:
+              - img [ref=e167]
+        - row "#11 Clean Code Martin Code" [ref=e170]:
+          - cell "#11" [ref=e171]
+          - cell "Clean Code" [ref=e172]:
+            - strong [ref=e173]: Clean Code
+          - cell "Martin Code" [ref=e174]
+          - cell [ref=e175]:
+            - button "Editar livro" [ref=e176] [cursor=pointer]:
+              - img [ref=e177]
+            - button "Excluir livro" [ref=e179] [cursor=pointer]:
+              - img [ref=e180]
+        - row "#12 Clean Code Martin Code" [ref=e183]:
+          - cell "#12" [ref=e184]
+          - cell "Clean Code" [ref=e185]:
+            - strong [ref=e186]: Clean Code
+          - cell "Martin Code" [ref=e187]
+          - cell [ref=e188]:
+            - button "Editar livro" [ref=e189] [cursor=pointer]:
+              - img [ref=e190]
+            - button "Excluir livro" [ref=e192] [cursor=pointer]:
+              - img [ref=e193]
+        - row "#13 Clean Code Martin Code" [ref=e196]:
+          - cell "#13" [ref=e197]
+          - cell "Clean Code" [ref=e198]:
+            - strong [ref=e199]: Clean Code
+          - cell "Martin Code" [ref=e200]
+          - cell [ref=e201]:
+            - button "Editar livro" [ref=e202] [cursor=pointer]:
+              - img [ref=e203]
+            - button "Excluir livro" [ref=e205] [cursor=pointer]:
+              - img [ref=e206]
+        - row "#14 Clean Code Martin Code" [ref=e209]:
+          - cell "#14" [ref=e210]
+          - cell "Clean Code" [ref=e211]:
+            - strong [ref=e212]: Clean Code
+          - cell "Martin Code" [ref=e213]
+          - cell [ref=e214]:
+            - button "Editar livro" [ref=e215] [cursor=pointer]:
+              - img [ref=e216]
+            - button "Excluir livro" [ref=e218] [cursor=pointer]:
+              - img [ref=e219]
+        - row "#15 Clean Code Martin Code" [ref=e222]:
+          - cell "#15" [ref=e223]
+          - cell "Clean Code" [ref=e224]:
+            - strong [ref=e225]: Clean Code
+          - cell "Martin Code" [ref=e226]
+          - cell [ref=e227]:
+            - button "Editar livro" [ref=e228] [cursor=pointer]:
+              - img [ref=e229]
+            - button "Excluir livro" [ref=e231] [cursor=pointer]:
+              - img [ref=e232]
+        - row "#16 Clean Code Martin Code" [ref=e235]:
+          - cell "#16" [ref=e236]
+          - cell "Clean Code" [ref=e237]:
+            - strong [ref=e238]: Clean Code
+          - cell "Martin Code" [ref=e239]
+          - cell [ref=e240]:
+            - button "Editar livro" [ref=e241] [cursor=pointer]:
+              - img [ref=e242]
+            - button "Excluir livro" [ref=e244] [cursor=pointer]:
+              - img [ref=e245]
+        - row "#17 Clean Code Martin Code" [ref=e248]:
+          - cell "#17" [ref=e249]
+          - cell "Clean Code" [ref=e250]:
+            - strong [ref=e251]: Clean Code
+          - cell "Martin Code" [ref=e252]
+          - cell [ref=e253]:
+            - button "Editar livro" [ref=e254] [cursor=pointer]:
+              - img [ref=e255]
+            - button "Excluir livro" [ref=e257] [cursor=pointer]:
+              - img [ref=e258]
+        - row "#18 Clean Code Martin Code" [ref=e261]:
+          - cell "#18" [ref=e262]
+          - cell "Clean Code" [ref=e263]:
+            - strong [ref=e264]: Clean Code
+          - cell "Martin Code" [ref=e265]
+          - cell [ref=e266]:
+            - button "Editar livro" [ref=e267] [cursor=pointer]:
+              - img [ref=e268]
+            - button "Excluir livro" [ref=e270] [cursor=pointer]:
+              - img [ref=e271]
+        - row "#19 Clean Code Martin Code" [ref=e274]:
+          - cell "#19" [ref=e275]
+          - cell "Clean Code" [ref=e276]:
+            - strong [ref=e277]: Clean Code
+          - cell "Martin Code" [ref=e278]
+          - cell [ref=e279]:
+            - button "Editar livro" [ref=e280] [cursor=pointer]:
+              - img [ref=e281]
+            - button "Excluir livro" [ref=e283] [cursor=pointer]:
+              - img [ref=e284]
+        - row "#20 Clean Code Martin Code" [ref=e287]:
+          - cell "#20" [ref=e288]
+          - cell "Clean Code" [ref=e289]:
+            - strong [ref=e290]: Clean Code
+          - cell "Martin Code" [ref=e291]
+          - cell [ref=e292]:
+            - button "Editar livro" [ref=e293] [cursor=pointer]:
+              - img [ref=e294]
+            - button "Excluir livro" [ref=e296] [cursor=pointer]:
+              - img [ref=e297]
+        - row "#21 Clean Code Martin Code" [ref=e300]:
+          - cell "#21" [ref=e301]
+          - cell "Clean Code" [ref=e302]:
+            - strong [ref=e303]: Clean Code
+          - cell "Martin Code" [ref=e304]
+          - cell [ref=e305]:
+            - button "Editar livro" [ref=e306] [cursor=pointer]:
+              - img [ref=e307]
+            - button "Excluir livro" [ref=e309] [cursor=pointer]:
+              - img [ref=e310]
+        - row "#22 Clean Code Martin Code" [ref=e313]:
+          - cell "#22" [ref=e314]
+          - cell "Clean Code" [ref=e315]:
+            - strong [ref=e316]: Clean Code
+          - cell "Martin Code" [ref=e317]
+          - cell [ref=e318]:
+            - button "Editar livro" [ref=e319] [cursor=pointer]:
+              - img [ref=e320]
+            - button "Excluir livro" [ref=e322] [cursor=pointer]:
+              - img [ref=e323]
+        - row "#23 Clean Code Martin Code" [ref=e326]:
+          - cell "#23" [ref=e327]
+          - cell "Clean Code" [ref=e328]:
+            - strong [ref=e329]: Clean Code
+          - cell "Martin Code" [ref=e330]
+          - cell [ref=e331]:
+            - button "Editar livro" [ref=e332] [cursor=pointer]:
+              - img [ref=e333]
+            - button "Excluir livro" [ref=e335] [cursor=pointer]:
+              - img [ref=e336]
+        - row "#24 Clean Code Martin Code" [ref=e339]:
+          - cell "#24" [ref=e340]
+          - cell "Clean Code" [ref=e341]:
+            - strong [ref=e342]: Clean Code
+          - cell "Martin Code" [ref=e343]
+          - cell [ref=e344]:
+            - button "Editar livro" [ref=e345] [cursor=pointer]:
+              - img [ref=e346]
+            - button "Excluir livro" [ref=e348] [cursor=pointer]:
+              - img [ref=e349]
+        - row "#25 Clean Code Martin Code" [ref=e352]:
+          - cell "#25" [ref=e353]
+          - cell "Clean Code" [ref=e354]:
+            - strong [ref=e355]: Clean Code
+          - cell "Martin Code" [ref=e356]
+          - cell [ref=e357]:
+            - button "Editar livro" [ref=e358] [cursor=pointer]:
+              - img [ref=e359]
+            - button "Excluir livro" [ref=e361] [cursor=pointer]:
+              - img [ref=e362]
+        - row "#26 Clean Code Martin Code" [ref=e365]:
+          - cell "#26" [ref=e366]
+          - cell "Clean Code" [ref=e367]:
+            - strong [ref=e368]: Clean Code
+          - cell "Martin Code" [ref=e369]
+          - cell [ref=e370]:
+            - button "Editar livro" [ref=e371] [cursor=pointer]:
+              - img [ref=e372]
+            - button "Excluir livro" [ref=e374] [cursor=pointer]:
+              - img [ref=e375]
+        - row "#27 Clean Code Martin Code" [ref=e378]:
+          - cell "#27" [ref=e379]
+          - cell "Clean Code" [ref=e380]:
+            - strong [ref=e381]: Clean Code
+          - cell "Martin Code" [ref=e382]
+          - cell [ref=e383]:
+            - button "Editar livro" [ref=e384] [cursor=pointer]:
+              - img [ref=e385]
+            - button "Excluir livro" [ref=e387] [cursor=pointer]:
+              - img [ref=e388]
+        - row "#28 Clean Code Martin Code" [ref=e391]:
+          - cell "#28" [ref=e392]
+          - cell "Clean Code" [ref=e393]:
+            - strong [ref=e394]: Clean Code
+          - cell "Martin Code" [ref=e395]
+          - cell [ref=e396]:
+            - button "Editar livro" [ref=e397] [cursor=pointer]:
+              - img [ref=e398]
+            - button "Excluir livro" [ref=e400] [cursor=pointer]:
+              - img [ref=e401]
+        - row "#29 Clean Code Martin Code" [ref=e404]:
+          - cell "#29" [ref=e405]
+          - cell "Clean Code" [ref=e406]:
+            - strong [ref=e407]: Clean Code
+          - cell "Martin Code" [ref=e408]
+          - cell [ref=e409]:
+            - button "Editar livro" [ref=e410] [cursor=pointer]:
+              - img [ref=e411]
+            - button "Excluir livro" [ref=e413] [cursor=pointer]:
+              - img [ref=e414]
+        - row "#30 Clean Code Martin Code" [ref=e417]:
+          - cell "#30" [ref=e418]
+          - cell "Clean Code" [ref=e419]:
+            - strong [ref=e420]: Clean Code
+          - cell "Martin Code" [ref=e421]
+          - cell [ref=e422]:
+            - button "Editar livro" [ref=e423] [cursor=pointer]:
+              - img [ref=e424]
+            - button "Excluir livro" [ref=e426] [cursor=pointer]:
+              - img [ref=e427]
+        - row "#31 Clean Code Martin Code" [ref=e430]:
+          - cell "#31" [ref=e431]
+          - cell "Clean Code" [ref=e432]:
+            - strong [ref=e433]: Clean Code
+          - cell "Martin Code" [ref=e434]
+          - cell [ref=e435]:
+            - button "Editar livro" [ref=e436] [cursor=pointer]:
+              - img [ref=e437]
+            - button "Excluir livro" [ref=e439] [cursor=pointer]:
+              - img [ref=e440]
+        - row "#32 Clean Code Martin Code" [ref=e443]:
+          - cell "#32" [ref=e444]
+          - cell "Clean Code" [ref=e445]:
+            - strong [ref=e446]: Clean Code
+          - cell "Martin Code" [ref=e447]
+          - cell [ref=e448]:
+            - button "Editar livro" [ref=e449] [cursor=pointer]:
+              - img [ref=e450]
+            - button "Excluir livro" [ref=e452] [cursor=pointer]:
+              - img [ref=e453]
+        - row "#33 Clean Code Martin Code" [ref=e456]:
+          - cell "#33" [ref=e457]
+          - cell "Clean Code" [ref=e458]:
+            - strong [ref=e459]: Clean Code
+          - cell "Martin Code" [ref=e460]
+          - cell [ref=e461]:
+            - button "Editar livro" [ref=e462] [cursor=pointer]:
+              - img [ref=e463]
+            - button "Excluir livro" [ref=e465] [cursor=pointer]:
+              - img [ref=e466]
+        - row "#34 Clean Code Martin Code" [ref=e469]:
+          - cell "#34" [ref=e470]
+          - cell "Clean Code" [ref=e471]:
+            - strong [ref=e472]: Clean Code
+          - cell "Martin Code" [ref=e473]
+          - cell [ref=e474]:
+            - button "Editar livro" [ref=e475] [cursor=pointer]:
+              - img [ref=e476]
+            - button "Excluir livro" [ref=e478] [cursor=pointer]:
+              - img [ref=e479]
+        - row "#35 Clean Code Martin Code" [ref=e482]:
+          - cell "#35" [ref=e483]
+          - cell "Clean Code" [ref=e484]:
+            - strong [ref=e485]: Clean Code
+          - cell "Martin Code" [ref=e486]
+          - cell [ref=e487]:
+            - button "Editar livro" [ref=e488] [cursor=pointer]:
+              - img [ref=e489]
+            - button "Excluir livro" [ref=e491] [cursor=pointer]:
+              - img [ref=e492]
+        - row "#36 Clean Code Martin Code" [ref=e495]:
+          - cell "#36" [ref=e496]
+          - cell "Clean Code" [ref=e497]:
+            - strong [ref=e498]: Clean Code
+          - cell "Martin Code" [ref=e499]
+          - cell [ref=e500]:
+            - button "Editar livro" [ref=e501] [cursor=pointer]:
+              - img [ref=e502]
+            - button "Excluir livro" [ref=e504] [cursor=pointer]:
+              - img [ref=e505]
+        - row "#37 Clean Code Martin Code" [ref=e508]:
+          - cell "#37" [ref=e509]
+          - cell "Clean Code" [ref=e510]:
+            - strong [ref=e511]: Clean Code
+          - cell "Martin Code" [ref=e512]
+          - cell [ref=e513]:
+            - button "Editar livro" [ref=e514] [cursor=pointer]:
+              - img [ref=e515]
+            - button "Excluir livro" [ref=e517] [cursor=pointer]:
+              - img [ref=e518]
+        - row "#38 Clean Code Martin Code" [ref=e521]:
+          - cell "#38" [ref=e522]
+          - cell "Clean Code" [ref=e523]:
+            - strong [ref=e524]: Clean Code
+          - cell "Martin Code" [ref=e525]
+          - cell [ref=e526]:
+            - button "Editar livro" [ref=e527] [cursor=pointer]:
+              - img [ref=e528]
+            - button "Excluir livro" [ref=e530] [cursor=pointer]:
+              - img [ref=e531]
+        - row "#39 Clean Code Martin Code" [ref=e534]:
+          - cell "#39" [ref=e535]
+          - cell "Clean Code" [ref=e536]:
+            - strong [ref=e537]: Clean Code
+          - cell "Martin Code" [ref=e538]
+          - cell [ref=e539]:
+            - button "Editar livro" [ref=e540] [cursor=pointer]:
+              - img [ref=e541]
+            - button "Excluir livro" [ref=e543] [cursor=pointer]:
+              - img [ref=e544]
+        - row "#40 Clean Code Martin Code" [ref=e547]:
+          - cell "#40" [ref=e548]
+          - cell "Clean Code" [ref=e549]:
+            - strong [ref=e550]: Clean Code
+          - cell "Martin Code" [ref=e551]
+          - cell [ref=e552]:
+            - button "Editar livro" [ref=e553] [cursor=pointer]:
+              - img [ref=e554]
+            - button "Excluir livro" [ref=e556] [cursor=pointer]:
+              - img [ref=e557]
+        - row "#41 Clean Code Martin Code" [ref=e560]:
+          - cell "#41" [ref=e561]
+          - cell "Clean Code" [ref=e562]:
+            - strong [ref=e563]: Clean Code
+          - cell "Martin Code" [ref=e564]
+          - cell [ref=e565]:
+            - button "Editar livro" [ref=e566] [cursor=pointer]:
+              - img [ref=e567]
+            - button "Excluir livro" [ref=e569] [cursor=pointer]:
+              - img [ref=e570]
+        - row "#42 Clean Code Martin Code" [ref=e573]:
+          - cell "#42" [ref=e574]
+          - cell "Clean Code" [ref=e575]:
+            - strong [ref=e576]: Clean Code
+          - cell "Martin Code" [ref=e577]
+          - cell [ref=e578]:
+            - button "Editar livro" [ref=e579] [cursor=pointer]:
+              - img [ref=e580]
+            - button "Excluir livro" [ref=e582] [cursor=pointer]:
+              - img [ref=e583]
+        - row "#43 Clean Code Martin Code" [ref=e586]:
+          - cell "#43" [ref=e587]
+          - cell "Clean Code" [ref=e588]:
+            - strong [ref=e589]: Clean Code
+          - cell "Martin Code" [ref=e590]
+          - cell [ref=e591]:
+            - button "Editar livro" [ref=e592] [cursor=pointer]:
+              - img [ref=e593]
+            - button "Excluir livro" [ref=e595] [cursor=pointer]:
+              - img [ref=e596]
+        - row "#44 Clean Code Martin Code" [ref=e599]:
+          - cell "#44" [ref=e600]
+          - cell "Clean Code" [ref=e601]:
+            - strong [ref=e602]: Clean Code
+          - cell "Martin Code" [ref=e603]
+          - cell [ref=e604]:
+            - button "Editar livro" [ref=e605] [cursor=pointer]:
+              - img [ref=e606]
+            - button "Excluir livro" [ref=e608] [cursor=pointer]:
+              - img [ref=e609]
+        - row "#45 Clean Code Martin Code" [ref=e612]:
+          - cell "#45" [ref=e613]
+          - cell "Clean Code" [ref=e614]:
+            - strong [ref=e615]: Clean Code
+          - cell "Martin Code" [ref=e616]
+          - cell [ref=e617]:
+            - button "Editar livro" [ref=e618] [cursor=pointer]:
+              - img [ref=e619]
+            - button "Excluir livro" [ref=e621] [cursor=pointer]:
+              - img [ref=e622]
+        - row "#46 Clean Code Martin Code" [ref=e625]:
+          - cell "#46" [ref=e626]
+          - cell "Clean Code" [ref=e627]:
+            - strong [ref=e628]: Clean Code
+          - cell "Martin Code" [ref=e629]
+          - cell [ref=e630]:
+            - button "Editar livro" [ref=e631] [cursor=pointer]:
+              - img [ref=e632]
+            - button "Excluir livro" [ref=e634] [cursor=pointer]:
+              - img [ref=e635]
+        - row "#47 Clean Code Martin Code" [ref=e638]:
+          - cell "#47" [ref=e639]
+          - cell "Clean Code" [ref=e640]:
+            - strong [ref=e641]: Clean Code
+          - cell "Martin Code" [ref=e642]
+          - cell [ref=e643]:
+            - button "Editar livro" [ref=e644] [cursor=pointer]:
+              - img [ref=e645]
+            - button "Excluir livro" [ref=e647] [cursor=pointer]:
+              - img [ref=e648]
+        - row "#48 Clean Code Martin Code" [ref=e651]:
+          - cell "#48" [ref=e652]
+          - cell "Clean Code" [ref=e653]:
+            - strong [ref=e654]: Clean Code
+          - cell "Martin Code" [ref=e655]
+          - cell [ref=e656]:
+            - button "Editar livro" [ref=e657] [cursor=pointer]:
+              - img [ref=e658]
+            - button "Excluir livro" [ref=e660] [cursor=pointer]:
+              - img [ref=e661]
+        - row "#49 Clean Code Martin Code" [ref=e664]:
+          - cell "#49" [ref=e665]
+          - cell "Clean Code" [ref=e666]:
+            - strong [ref=e667]: Clean Code
+          - cell "Martin Code" [ref=e668]
+          - cell [ref=e669]:
+            - button "Editar livro" [ref=e670] [cursor=pointer]:
+              - img [ref=e671]
+            - button "Excluir livro" [ref=e673] [cursor=pointer]:
+              - img [ref=e674]
+        - row "#50 Clean Code Martin Code" [ref=e677]:
+          - cell "#50" [ref=e678]
+          - cell "Clean Code" [ref=e679]:
+            - strong [ref=e680]: Clean Code
+          - cell "Martin Code" [ref=e681]
+          - cell [ref=e682]:
+            - button "Editar livro" [ref=e683] [cursor=pointer]:
+              - img [ref=e684]
+            - button "Excluir livro" [ref=e686] [cursor=pointer]:
+              - img [ref=e687]
+        - row "#51 Clean Code Martin Code" [ref=e690]:
+          - cell "#51" [ref=e691]
+          - cell "Clean Code" [ref=e692]:
+            - strong [ref=e693]: Clean Code
+          - cell "Martin Code" [ref=e694]
+          - cell [ref=e695]:
+            - button "Editar livro" [ref=e696] [cursor=pointer]:
+              - img [ref=e697]
+            - button "Excluir livro" [ref=e699] [cursor=pointer]:
+              - img [ref=e700]
+        - row "#52 Clean Code Martin Code" [ref=e703]:
+          - cell "#52" [ref=e704]
+          - cell "Clean Code" [ref=e705]:
+            - strong [ref=e706]: Clean Code
+          - cell "Martin Code" [ref=e707]
+          - cell [ref=e708]:
+            - button "Editar livro" [ref=e709] [cursor=pointer]:
+              - img [ref=e710]
+            - button "Excluir livro" [ref=e712] [cursor=pointer]:
+              - img [ref=e713]
+        - row "#53 Clean Code Martin Code" [ref=e716]:
+          - cell "#53" [ref=e717]
+          - cell "Clean Code" [ref=e718]:
+            - strong [ref=e719]: Clean Code
+          - cell "Martin Code" [ref=e720]
+          - cell [ref=e721]:
+            - button "Editar livro" [ref=e722] [cursor=pointer]:
+              - img [ref=e723]
+            - button "Excluir livro" [ref=e725] [cursor=pointer]:
+              - img [ref=e726]
+        - row "#54 Clean Code Martin Code" [ref=e729]:
+          - cell "#54" [ref=e730]
+          - cell "Clean Code" [ref=e731]:
+            - strong [ref=e732]: Clean Code
+          - cell "Martin Code" [ref=e733]
+          - cell [ref=e734]:
+            - button "Editar livro" [ref=e735] [cursor=pointer]:
+              - img [ref=e736]
+            - button "Excluir livro" [ref=e738] [cursor=pointer]:
+              - img [ref=e739]
+        - row "#55 Clean Code Martin Code" [ref=e742]:
+          - cell "#55" [ref=e743]
+          - cell "Clean Code" [ref=e744]:
+            - strong [ref=e745]: Clean Code
+          - cell "Martin Code" [ref=e746]
+          - cell [ref=e747]:
+            - button "Editar livro" [ref=e748] [cursor=pointer]:
+              - img [ref=e749]
+            - button "Excluir livro" [ref=e751] [cursor=pointer]:
+              - img [ref=e752]
+        - row "#56 Clean Code Martin Code" [ref=e755]:
+          - cell "#56" [ref=e756]
+          - cell "Clean Code" [ref=e757]:
+            - strong [ref=e758]: Clean Code
+          - cell "Martin Code" [ref=e759]
+          - cell [ref=e760]:
+            - button "Editar livro" [ref=e761] [cursor=pointer]:
+              - img [ref=e762]
+            - button "Excluir livro" [ref=e764] [cursor=pointer]:
+              - img [ref=e765]
+        - row "#57 Clean Code Martin Code" [ref=e768]:
+          - cell "#57" [ref=e769]
+          - cell "Clean Code" [ref=e770]:
+            - strong [ref=e771]: Clean Code
+          - cell "Martin Code" [ref=e772]
+          - cell [ref=e773]:
+            - button "Editar livro" [ref=e774] [cursor=pointer]:
+              - img [ref=e775]
+            - button "Excluir livro" [ref=e777] [cursor=pointer]:
+              - img [ref=e778]
+        - row "#58 Clean Code Martin Code" [ref=e781]:
+          - cell "#58" [ref=e782]
+          - cell "Clean Code" [ref=e783]:
+            - strong [ref=e784]: Clean Code
+          - cell "Martin Code" [ref=e785]
+          - cell [ref=e786]:
+            - button "Editar livro" [ref=e787] [cursor=pointer]:
+              - img [ref=e788]
+            - button "Excluir livro" [ref=e790] [cursor=pointer]:
+              - img [ref=e791]
+        - row "#59 Clean Code Martin Code" [ref=e794]:
+          - cell "#59" [ref=e795]
+          - cell "Clean Code" [ref=e796]:
+            - strong [ref=e797]: Clean Code
+          - cell "Martin Code" [ref=e798]
+          - cell [ref=e799]:
+            - button "Editar livro" [ref=e800] [cursor=pointer]:
+              - img [ref=e801]
+            - button "Excluir livro" [ref=e803] [cursor=pointer]:
+              - img [ref=e804]
+        - row "#60 Clean Code Martin Code" [ref=e807]:
+          - cell "#60" [ref=e808]
+          - cell "Clean Code" [ref=e809]:
+            - strong [ref=e810]: Clean Code
+          - cell "Martin Code" [ref=e811]
+          - cell [ref=e812]:
+            - button "Editar livro" [ref=e813] [cursor=pointer]:
+              - img [ref=e814]
+            - button "Excluir livro" [ref=e816] [cursor=pointer]:
+              - img [ref=e817]
+        - row "#61 Clean Code Martin Code" [ref=e820]:
+          - cell "#61" [ref=e821]
+          - cell "Clean Code" [ref=e822]:
+            - strong [ref=e823]: Clean Code
+          - cell "Martin Code" [ref=e824]
+          - cell [ref=e825]:
+            - button "Editar livro" [ref=e826] [cursor=pointer]:
+              - img [ref=e827]
+            - button "Excluir livro" [ref=e829] [cursor=pointer]:
+              - img [ref=e830]
+        - row "#62 Clean Code Martin Code" [ref=e833]:
+          - cell "#62" [ref=e834]
+          - cell "Clean Code" [ref=e835]:
+            - strong [ref=e836]: Clean Code
+          - cell "Martin Code" [ref=e837]
+          - cell [ref=e838]:
+            - button "Editar livro" [ref=e839] [cursor=pointer]:
+              - img [ref=e840]
+            - button "Excluir livro" [ref=e842] [cursor=pointer]:
+              - img [ref=e843]
+        - row "#63 Clean Code Martin Code" [ref=e846]:
+          - cell "#63" [ref=e847]
+          - cell "Clean Code" [ref=e848]:
+            - strong [ref=e849]: Clean Code
+          - cell "Martin Code" [ref=e850]
+          - cell [ref=e851]:
+            - button "Editar livro" [ref=e852] [cursor=pointer]:
+              - img [ref=e853]
+            - button "Excluir livro" [ref=e855] [cursor=pointer]:
+              - img [ref=e856]
+        - row "#64 Clean Code Martin Code" [ref=e859]:
+          - cell "#64" [ref=e860]
+          - cell "Clean Code" [ref=e861]:
+            - strong [ref=e862]: Clean Code
+          - cell "Martin Code" [ref=e863]
+          - cell [ref=e864]:
+            - button "Editar livro" [ref=e865] [cursor=pointer]:
+              - img [ref=e866]
+            - button "Excluir livro" [ref=e868] [cursor=pointer]:
+              - img [ref=e869]
+        - row "#65 Clean Code Martin Code" [ref=e872]:
+          - cell "#65" [ref=e873]
+          - cell "Clean Code" [ref=e874]:
+            - strong [ref=e875]: Clean Code
+          - cell "Martin Code" [ref=e876]
+          - cell [ref=e877]:
+            - button "Editar livro" [ref=e878] [cursor=pointer]:
+              - img [ref=e879]
+            - button "Excluir livro" [ref=e881] [cursor=pointer]:
+              - img [ref=e882]
+        - row "#66 Clean Code Martin Code" [ref=e885]:
+          - cell "#66" [ref=e886]
+          - cell "Clean Code" [ref=e887]:
+            - strong [ref=e888]: Clean Code
+          - cell "Martin Code" [ref=e889]
+          - cell [ref=e890]:
+            - button "Editar livro" [ref=e891] [cursor=pointer]:
+              - img [ref=e892]
+            - button "Excluir livro" [ref=e894] [cursor=pointer]:
+              - img [ref=e895]
+        - row "#67 Clean Code Martin Code" [ref=e898]:
+          - cell "#67" [ref=e899]
+          - cell "Clean Code" [ref=e900]:
+            - strong [ref=e901]: Clean Code
+          - cell "Martin Code" [ref=e902]
+          - cell [ref=e903]:
+            - button "Editar livro" [ref=e904] [cursor=pointer]:
+              - img [ref=e905]
+            - button "Excluir livro" [ref=e907] [cursor=pointer]:
+              - img [ref=e908]
+        - row "#68 Clean Code Martin Code" [ref=e911]:
+          - cell "#68" [ref=e912]
+          - cell "Clean Code" [ref=e913]:
+            - strong [ref=e914]: Clean Code
+          - cell "Martin Code" [ref=e915]
+          - cell [ref=e916]:
+            - button "Editar livro" [ref=e917] [cursor=pointer]:
+              - img [ref=e918]
+            - button "Excluir livro" [ref=e920] [cursor=pointer]:
+              - img [ref=e921]
+        - row "#69 Clean Code Martin Code" [ref=e924]:
+          - cell "#69" [ref=e925]
+          - cell "Clean Code" [ref=e926]:
+            - strong [ref=e927]: Clean Code
+          - cell "Martin Code" [ref=e928]
+          - cell [ref=e929]:
+            - button "Editar livro" [ref=e930] [cursor=pointer]:
+              - img [ref=e931]
+            - button "Excluir livro" [ref=e933] [cursor=pointer]:
+              - img [ref=e934]
+        - row "#70 Clean Code Martin Code" [ref=e937]:
+          - cell "#70" [ref=e938]
+          - cell "Clean Code" [ref=e939]:
+            - strong [ref=e940]: Clean Code
+          - cell "Martin Code" [ref=e941]
+          - cell [ref=e942]:
+            - button "Editar livro" [ref=e943] [cursor=pointer]:
+              - img [ref=e944]
+            - button "Excluir livro" [ref=e946] [cursor=pointer]:
+              - img [ref=e947]
+        - row "#71 Clean Code Martin Code" [ref=e950]:
+          - cell "#71" [ref=e951]
+          - cell "Clean Code" [ref=e952]:
+            - strong [ref=e953]: Clean Code
+          - cell "Martin Code" [ref=e954]
+          - cell [ref=e955]:
+            - button "Editar livro" [ref=e956] [cursor=pointer]:
+              - img [ref=e957]
+            - button "Excluir livro" [ref=e959] [cursor=pointer]:
+              - img [ref=e960]
+        - row "#72 Clean Code Martin Code" [ref=e963]:
+          - cell "#72" [ref=e964]
+          - cell "Clean Code" [ref=e965]:
+            - strong [ref=e966]: Clean Code
+          - cell "Martin Code" [ref=e967]
+          - cell [ref=e968]:
+            - button "Editar livro" [ref=e969] [cursor=pointer]:
+              - img [ref=e970]
+            - button "Excluir livro" [ref=e972] [cursor=pointer]:
+              - img [ref=e973]
+        - row "#73 Clean Code Martin Code" [ref=e976]:
+          - cell "#73" [ref=e977]
+          - cell "Clean Code" [ref=e978]:
+            - strong [ref=e979]: Clean Code
+          - cell "Martin Code" [ref=e980]
+          - cell [ref=e981]:
+            - button "Editar livro" [ref=e982] [cursor=pointer]:
+              - img [ref=e983]
+            - button "Excluir livro" [ref=e985] [cursor=pointer]:
+              - img [ref=e986]
+        - row "#74 Clean Code Martin Code" [ref=e989]:
+          - cell "#74" [ref=e990]
+          - cell "Clean Code" [ref=e991]:
+            - strong [ref=e992]: Clean Code
+          - cell "Martin Code" [ref=e993]
+          - cell [ref=e994]:
+            - button "Editar livro" [ref=e995] [cursor=pointer]:
+              - img [ref=e996]
+            - button "Excluir livro" [ref=e998] [cursor=pointer]:
+              - img [ref=e999]
+        - row "#75 Clean Code Martin Code" [ref=e1002]:
+          - cell "#75" [ref=e1003]
+          - cell "Clean Code" [ref=e1004]:
+            - strong [ref=e1005]: Clean Code
+          - cell "Martin Code" [ref=e1006]
+          - cell [ref=e1007]:
+            - button "Editar livro" [ref=e1008] [cursor=pointer]:
+              - img [ref=e1009]
+            - button "Excluir livro" [ref=e1011] [cursor=pointer]:
+              - img [ref=e1012]
+        - row "#76 Clean Code Martin Code" [ref=e1015]:
+          - cell "#76" [ref=e1016]
+          - cell "Clean Code" [ref=e1017]:
+            - strong [ref=e1018]: Clean Code
+          - cell "Martin Code" [ref=e1019]
+          - cell [ref=e1020]:
+            - button "Editar livro" [ref=e1021] [cursor=pointer]:
+              - img [ref=e1022]
+            - button "Excluir livro" [ref=e1024] [cursor=pointer]:
+              - img [ref=e1025]
+        - row "#77 Clean Code Martin Code" [ref=e1028]:
+          - cell "#77" [ref=e1029]
+          - cell "Clean Code" [ref=e1030]:
+            - strong [ref=e1031]: Clean Code
+          - cell "Martin Code" [ref=e1032]
+          - cell [ref=e1033]:
+            - button "Editar livro" [ref=e1034] [cursor=pointer]:
+              - img [ref=e1035]
+            - button "Excluir livro" [ref=e1037] [cursor=pointer]:
+              - img [ref=e1038]
+        - row "#78 Clean Code Martin Code" [ref=e1041]:
+          - cell "#78" [ref=e1042]
+          - cell "Clean Code" [ref=e1043]:
+            - strong [ref=e1044]: Clean Code
+          - cell "Martin Code" [ref=e1045]
+          - cell [ref=e1046]:
+            - button "Editar livro" [ref=e1047] [cursor=pointer]:
+              - img [ref=e1048]
+            - button "Excluir livro" [ref=e1050] [cursor=pointer]:
+              - img [ref=e1051]
+        - row "#79 Clean Code Martin Code" [ref=e1054]:
+          - cell "#79" [ref=e1055]
+          - cell "Clean Code" [ref=e1056]:
+            - strong [ref=e1057]: Clean Code
+          - cell "Martin Code" [ref=e1058]
+          - cell [ref=e1059]:
+            - button "Editar livro" [ref=e1060] [cursor=pointer]:
+              - img [ref=e1061]
+            - button "Excluir livro" [ref=e1063] [cursor=pointer]:
+              - img [ref=e1064]
+        - row "#80 Clean Code Martin Code" [ref=e1067]:
+          - cell "#80" [ref=e1068]
+          - cell "Clean Code" [ref=e1069]:
+            - strong [ref=e1070]: Clean Code
+          - cell "Martin Code" [ref=e1071]
+          - cell [ref=e1072]:
+            - button "Editar livro" [ref=e1073] [cursor=pointer]:
+              - img [ref=e1074]
+            - button "Excluir livro" [ref=e1076] [cursor=pointer]:
+              - img [ref=e1077]
+        - row "#81 Clean Code Martin Code" [ref=e1080]:
+          - cell "#81" [ref=e1081]
+          - cell "Clean Code" [ref=e1082]:
+            - strong [ref=e1083]: Clean Code
+          - cell "Martin Code" [ref=e1084]
+          - cell [ref=e1085]:
+            - button "Editar livro" [ref=e1086] [cursor=pointer]:
+              - img [ref=e1087]
+            - button "Excluir livro" [ref=e1089] [cursor=pointer]:
+              - img [ref=e1090]
+        - row "#82 Clean Code Martin Code" [ref=e1093]:
+          - cell "#82" [ref=e1094]
+          - cell "Clean Code" [ref=e1095]:
+            - strong [ref=e1096]: Clean Code
+          - cell "Martin Code" [ref=e1097]
+          - cell [ref=e1098]:
+            - button "Editar livro" [ref=e1099] [cursor=pointer]:
+              - img [ref=e1100]
+            - button "Excluir livro" [ref=e1102] [cursor=pointer]:
+              - img [ref=e1103]
+        - row "#83 Clean Code Martin Code" [ref=e1106]:
+          - cell "#83" [ref=e1107]
+          - cell "Clean Code" [ref=e1108]:
+            - strong [ref=e1109]: Clean Code
+          - cell "Martin Code" [ref=e1110]
+          - cell [ref=e1111]:
+            - button "Editar livro" [ref=e1112] [cursor=pointer]:
+              - img [ref=e1113]
+            - button "Excluir livro" [ref=e1115] [cursor=pointer]:
+              - img [ref=e1116]
+        - row "#84 Clean Code Martin Code" [ref=e1119]:
+          - cell "#84" [ref=e1120]
+          - cell "Clean Code" [ref=e1121]:
+            - strong [ref=e1122]: Clean Code
+          - cell "Martin Code" [ref=e1123]
+          - cell [ref=e1124]:
+            - button "Editar livro" [ref=e1125] [cursor=pointer]:
+              - img [ref=e1126]
+            - button "Excluir livro" [ref=e1128] [cursor=pointer]:
+              - img [ref=e1129]
+        - row "#85 Clean Code Martin Code" [ref=e1132]:
+          - cell "#85" [ref=e1133]
+          - cell "Clean Code" [ref=e1134]:
+            - strong [ref=e1135]: Clean Code
+          - cell "Martin Code" [ref=e1136]
+          - cell [ref=e1137]:
+            - button "Editar livro" [ref=e1138] [cursor=pointer]:
+              - img [ref=e1139]
+            - button "Excluir livro" [ref=e1141] [cursor=pointer]:
+              - img [ref=e1142]
+        - row "#86 Clean Code Martin Code" [ref=e1145]:
+          - cell "#86" [ref=e1146]
+          - cell "Clean Code" [ref=e1147]:
+            - strong [ref=e1148]: Clean Code
+          - cell "Martin Code" [ref=e1149]
+          - cell [ref=e1150]:
+            - button "Editar livro" [ref=e1151] [cursor=pointer]:
+              - img [ref=e1152]
+            - button "Excluir livro" [ref=e1154] [cursor=pointer]:
+              - img [ref=e1155]
+        - row "#87 Clean Code Martin Code" [ref=e1158]:
+          - cell "#87" [ref=e1159]
+          - cell "Clean Code" [ref=e1160]:
+            - strong [ref=e1161]: Clean Code
+          - cell "Martin Code" [ref=e1162]
+          - cell [ref=e1163]:
+            - button "Editar livro" [ref=e1164] [cursor=pointer]:
+              - img [ref=e1165]
+            - button "Excluir livro" [ref=e1167] [cursor=pointer]:
+              - img [ref=e1168]
+        - row "#88 Clean Code Martin Code" [ref=e1171]:
+          - cell "#88" [ref=e1172]
+          - cell "Clean Code" [ref=e1173]:
+            - strong [ref=e1174]: Clean Code
+          - cell "Martin Code" [ref=e1175]
+          - cell [ref=e1176]:
+            - button "Editar livro" [ref=e1177] [cursor=pointer]:
+              - img [ref=e1178]
+            - button "Excluir livro" [ref=e1180] [cursor=pointer]:
+              - img [ref=e1181]
+        - row "#89 Clean Code Martin Code" [ref=e1184]:
+          - cell "#89" [ref=e1185]
+          - cell "Clean Code" [ref=e1186]:
+            - strong [ref=e1187]: Clean Code
+          - cell "Martin Code" [ref=e1188]
+          - cell [ref=e1189]:
+            - button "Editar livro" [ref=e1190] [cursor=pointer]:
+              - img [ref=e1191]
+            - button "Excluir livro" [ref=e1193] [cursor=pointer]:
+              - img [ref=e1194]
+        - row "#90 Clean Code Martin Code" [ref=e1197]:
+          - cell "#90" [ref=e1198]
+          - cell "Clean Code" [ref=e1199]:
+            - strong [ref=e1200]: Clean Code
+          - cell "Martin Code" [ref=e1201]
+          - cell [ref=e1202]:
+            - button "Editar livro" [ref=e1203] [cursor=pointer]:
+              - img [ref=e1204]
+            - button "Excluir livro" [ref=e1206] [cursor=pointer]:
+              - img [ref=e1207]
+        - row "#91 Clean Code Martin Code" [ref=e1210]:
+          - cell "#91" [ref=e1211]
+          - cell "Clean Code" [ref=e1212]:
+            - strong [ref=e1213]: Clean Code
+          - cell "Martin Code" [ref=e1214]
+          - cell [ref=e1215]:
+            - button "Editar livro" [ref=e1216] [cursor=pointer]:
+              - img [ref=e1217]
+            - button "Excluir livro" [ref=e1219] [cursor=pointer]:
+              - img [ref=e1220]
+        - row "#92 Clean Code Martin Code" [ref=e1223]:
+          - cell "#92" [ref=e1224]
+          - cell "Clean Code" [ref=e1225]:
+            - strong [ref=e1226]: Clean Code
+          - cell "Martin Code" [ref=e1227]
+          - cell [ref=e1228]:
+            - button "Editar livro" [ref=e1229] [cursor=pointer]:
+              - img [ref=e1230]
+            - button "Excluir livro" [ref=e1232] [cursor=pointer]:
+              - img [ref=e1233]
+        - row "#93 Clean Code Martin Code" [ref=e1236]:
+          - cell "#93" [ref=e1237]
+          - cell "Clean Code" [ref=e1238]:
+            - strong [ref=e1239]: Clean Code
+          - cell "Martin Code" [ref=e1240]
+          - cell [ref=e1241]:
+            - button "Editar livro" [ref=e1242] [cursor=pointer]:
+              - img [ref=e1243]
+            - button "Excluir livro" [ref=e1245] [cursor=pointer]:
+              - img [ref=e1246]
+        - row "#94 Clean Code Martin Code" [ref=e1249]:
+          - cell "#94" [ref=e1250]
+          - cell "Clean Code" [ref=e1251]:
+            - strong [ref=e1252]: Clean Code
+          - cell "Martin Code" [ref=e1253]
+          - cell [ref=e1254]:
+            - button "Editar livro" [ref=e1255] [cursor=pointer]:
+              - img [ref=e1256]
+            - button "Excluir livro" [ref=e1258] [cursor=pointer]:
+              - img [ref=e1259]
+        - row "#95 Clean Code Martin Code" [ref=e1262]:
+          - cell "#95" [ref=e1263]
+          - cell "Clean Code" [ref=e1264]:
+            - strong [ref=e1265]: Clean Code
+          - cell "Martin Code" [ref=e1266]
+          - cell [ref=e1267]:
+            - button "Editar livro" [ref=e1268] [cursor=pointer]:
+              - img [ref=e1269]
+            - button "Excluir livro" [ref=e1271] [cursor=pointer]:
+              - img [ref=e1272]
+        - row "#96 Livro Teste Autor Teste" [ref=e1275]:
+          - cell "#96" [ref=e1276]
+          - cell "Livro Teste" [ref=e1277]:
+            - strong [ref=e1278]: Livro Teste
+          - cell "Autor Teste" [ref=e1279]
+          - cell [ref=e1280]:
+            - button "Editar livro" [ref=e1281] [cursor=pointer]:
+              - img [ref=e1282]
+            - button "Excluir livro" [ref=e1284] [cursor=pointer]:
+              - img [ref=e1285]
+        - row "#97 Pair Programming Martin Code" [ref=e1288]:
+          - cell "#97" [ref=e1289]
+          - cell "Pair Programming" [ref=e1290]:
+            - strong [ref=e1291]: Pair Programming
+          - cell "Martin Code" [ref=e1292]
+          - cell [ref=e1293]:
+            - button "Editar livro" [ref=e1294] [cursor=pointer]:
+              - img [ref=e1295]
+            - button "Excluir livro" [ref=e1297] [cursor=pointer]:
+              - img [ref=e1298]
+        - row "#99 Clean Code Martin Code" [ref=e1301]:
+          - cell "#99" [ref=e1302]
+          - cell "Clean Code" [ref=e1303]:
+            - strong [ref=e1304]: Clean Code
+          - cell "Martin Code" [ref=e1305]
+          - cell [ref=e1306]:
+            - button "Editar livro" [ref=e1307] [cursor=pointer]:
+              - img [ref=e1308]
+            - button "Excluir livro" [ref=e1310] [cursor=pointer]:
+              - img [ref=e1311]
+        - row "#100 Livro Teste Autor Teste" [ref=e1314]:
+          - cell "#100" [ref=e1315]
+          - cell "Livro Teste" [ref=e1316]:
+            - strong [ref=e1317]: Livro Teste
+          - cell "Autor Teste" [ref=e1318]
+          - cell [ref=e1319]:
+            - button "Editar livro" [ref=e1320] [cursor=pointer]:
+              - img [ref=e1321]
+            - button "Excluir livro" [ref=e1323] [cursor=pointer]:
+              - img [ref=e1324]
+        - row "#101 Pair Programming Martin Code" [ref=e1327]:
+          - cell "#101" [ref=e1328]
+          - cell "Pair Programming" [ref=e1329]:
+            - strong [ref=e1330]: Pair Programming
+          - cell "Martin Code" [ref=e1331]
+          - cell [ref=e1332]:
+            - button "Editar livro" [ref=e1333] [cursor=pointer]:
+              - img [ref=e1334]
+            - button "Excluir livro" [ref=e1336] [cursor=pointer]:
+              - img [ref=e1337]
+        - row "#103 Clean Code Martin Code" [ref=e1340]:
+          - cell "#103" [ref=e1341]
+          - cell "Clean Code" [ref=e1342]:
+            - strong [ref=e1343]: Clean Code
+          - cell "Martin Code" [ref=e1344]
+          - cell [ref=e1345]:
+            - button "Editar livro" [ref=e1346] [cursor=pointer]:
+              - img [ref=e1347]
+            - button "Excluir livro" [ref=e1349] [cursor=pointer]:
+              - img [ref=e1350]
+        - row "#106 Clean Code Martin Code" [ref=e1353]:
+          - cell "#106" [ref=e1354]
+          - cell "Clean Code" [ref=e1355]:
+            - strong [ref=e1356]: Clean Code
+          - cell "Martin Code" [ref=e1357]
+          - cell [ref=e1358]:
+            - button "Editar livro" [ref=e1359] [cursor=pointer]:
+              - img [ref=e1360]
+            - button "Excluir livro" [ref=e1362] [cursor=pointer]:
+              - img [ref=e1363]
+        - row "#108 Clean Code Martin Code" [ref=e1366]:
+          - cell "#108" [ref=e1367]
+          - cell "Clean Code" [ref=e1368]:
+            - strong [ref=e1369]: Clean Code
+          - cell "Martin Code" [ref=e1370]
+          - cell [ref=e1371]:
+            - button "Editar livro" [ref=e1372] [cursor=pointer]:
+              - img [ref=e1373]
+            - button "Excluir livro" [ref=e1375] [cursor=pointer]:
+              - img [ref=e1376]
+        - row "#110 Livro E2E 437 Automação Playwright" [ref=e1379]:
+          - cell "#110" [ref=e1380]
+          - cell "Livro E2E 437" [ref=e1381]:
+            - strong [ref=e1382]: Livro E2E 437
+          - cell "Automação Playwright" [ref=e1383]
+          - cell [ref=e1384]:
+            - button "Editar livro" [ref=e1385] [cursor=pointer]:
+              - img [ref=e1386]
+            - button "Excluir livro" [ref=e1388] [cursor=pointer]:
+              - img [ref=e1389]
+        - row "#111 Livro E2E 599 Automação Playwright" [ref=e1392]:
+          - cell "#111" [ref=e1393]
+          - cell "Livro E2E 599" [ref=e1394]:
+            - strong [ref=e1395]: Livro E2E 599
+          - cell "Automação Playwright" [ref=e1396]
+          - cell [ref=e1397]:
+            - button "Editar livro" [ref=e1398] [cursor=pointer]:
+              - img [ref=e1399]
+            - button "Excluir livro" [ref=e1401] [cursor=pointer]:
+              - img [ref=e1402]
+        - row "#112 Livro Teste Autor Teste" [ref=e1405]:
+          - cell "#112" [ref=e1406]
+          - cell "Livro Teste" [ref=e1407]:
+            - strong [ref=e1408]: Livro Teste
+          - cell "Autor Teste" [ref=e1409]
+          - cell [ref=e1410]:
+            - button "Editar livro" [ref=e1411] [cursor=pointer]:
+              - img [ref=e1412]
+            - button "Excluir livro" [ref=e1414] [cursor=pointer]:
+              - img [ref=e1415]
+        - row "#113 Livro E2E 281 Automação Playwright" [ref=e1418]:
+          - cell "#113" [ref=e1419]
+          - cell "Livro E2E 281" [ref=e1420]:
+            - strong [ref=e1421]: Livro E2E 281
+          - cell "Automação Playwright" [ref=e1422]
+          - cell [ref=e1423]:
+            - button "Editar livro" [ref=e1424] [cursor=pointer]:
+              - img [ref=e1425]
+            - button "Excluir livro" [ref=e1427] [cursor=pointer]:
+              - img [ref=e1428]
+        - row "#114 Livro Teste 1779194588200 Autor Teste" [ref=e1431]:
+          - cell "#114" [ref=e1432]
+          - cell "Livro Teste 1779194588200" [ref=e1433]:
+            - strong [ref=e1434]: Livro Teste 1779194588200
+          - cell "Autor Teste" [ref=e1435]
+          - cell [ref=e1436]:
+            - button "Editar livro" [ref=e1437] [cursor=pointer]:
+              - img [ref=e1438]
+            - button "Excluir livro" [ref=e1440] [cursor=pointer]:
+              - img [ref=e1441]
+        - row "#115 Livro E2E 707 Automação Playwright" [ref=e1444]:
+          - cell "#115" [ref=e1445]
+          - cell "Livro E2E 707" [ref=e1446]:
+            - strong [ref=e1447]: Livro E2E 707
+          - cell "Automação Playwright" [ref=e1448]
+          - cell [ref=e1449]:
+            - button "Editar livro" [ref=e1450] [cursor=pointer]:
+              - img [ref=e1451]
+            - button "Excluir livro" [ref=e1453] [cursor=pointer]:
+              - img [ref=e1454]
+        - row "#116 Livro Teste 1779195125856 Autor Teste" [ref=e1457]:
+          - cell "#116" [ref=e1458]
+          - cell "Livro Teste 1779195125856" [ref=e1459]:
+            - strong [ref=e1460]: Livro Teste 1779195125856
+          - cell "Autor Teste" [ref=e1461]
+          - cell [ref=e1462]:
+            - button "Editar livro" [ref=e1463] [cursor=pointer]:
+              - img [ref=e1464]
+            - button "Excluir livro" [active] [ref=e1466] [cursor=pointer]:
+              - img [ref=e1467]
+    - button "Adicionar novo livro" [ref=e1470] [cursor=pointer]:
+      - img [ref=e1471]
+  - navigation "Navegação principal" [ref=e1473]:
+    - generic [ref=e1474]:
+      - link "Livros" [ref=e1475] [cursor=pointer]:
+        - /url: /livros
+        - img [ref=e1477]
+        - generic [ref=e1479]: Livros
+      - link "Empréstimos" [ref=e1480] [cursor=pointer]:
+        - /url: /emprestimos
+        - img [ref=e1482]
+        - generic [ref=e1485]: Empréstimos
+      - link "Início" [ref=e1486] [cursor=pointer]:
+        - /url: /
+        - img [ref=e1488]
+        - generic [ref=e1491]: Início
+      - link "Multas" [ref=e1492] [cursor=pointer]:
+        - /url: /multas
+        - img [ref=e1494]
+        - generic [ref=e1496]: Multas
+      - link "Equipe" [ref=e1497] [cursor=pointer]:
+        - /url: /usuarios
+        - img [ref=e1499]
+        - generic [ref=e1504]: Equipe
+```
+
+# Test source
+
+```ts
+  1  | import { test, expect } from "@playwright/test";
+  2  | 
+  3  | test.describe("Gerenciamento de Livros (E2E)", () => {
+  4  |   test.beforeEach(async ({ page }) => {
+  5  |     await page.goto("/");
+  6  | 
+  7  |     await page.fill('input[type="email"]', "admin@sistema.com");
+  8  |     await page.fill('input[type="password"]', "123456");
+  9  |     await page.click('button[type="submit"]');
+  10 | 
+  11 |     await expect(page).toHaveURL(/\/dashboard|$/);
+  12 |   });
+  13 | 
+  14 |   test("deve navegar até a tela de livros e listar o acervo", async ({
+  15 |     page,
+  16 |   }) => {
+  17 |     await page.goto("/livros");
+  18 | 
+  19 |     await expect(
+  20 |       page.getByRole("heading", { name: "Biblioteca" }),
+  21 |     ).toBeVisible();
+  22 |   });
+  23 | 
+  24 |   test("deve permitir adicionar um novo livro e encontrá-lo na lista", async ({
+  25 |     page,
+  26 |   }) => {
+  27 |     const tituloAleatorio = `Livro E2E ${Math.floor(Math.random() * 1000)}`;
+  28 | 
+  29 |     await page.goto("/livros");
+  30 | 
+  31 |     await page.getByTitle("Adicionar novo livro").click();
+  32 | 
+  33 |     const inputs = page.locator("input");
+  34 | 
+  35 |     await inputs.nth(1).fill(tituloAleatorio);
+  36 |     await inputs.nth(2).fill("Automação Playwright");
+  37 | 
+  38 |     await page.getByRole("button", { name: "Adicionar Livro" }).click();
+  39 | 
+  40 |     await expect(page.getByText(tituloAleatorio)).toBeVisible();
+  41 |   });
+  42 | 
+  43 |   test("deve fechar o modal ao clicar no botão cancelar", async ({ page }) => {
+  44 |     await page.goto("/livros");
+  45 | 
+  46 |     await page.getByTitle("Adicionar novo livro").click();
+  47 | 
+  48 |     await expect(
+  49 |       page.getByRole("heading", { name: "Adicionar Novo Livro" }),
+  50 |     ).toBeVisible();
+  51 | 
+  52 |     await page.getByRole("button", { name: "Cancelar" }).click();
+  53 | 
+  54 |     await expect(
+  55 |       page.getByRole("heading", { name: "Adicionar Novo Livro" }),
+  56 |     ).not.toBeVisible();
+  57 |   });
+  58 | 
+  59 |   test("Deve excluir o registro de um livro", async ({ page }) => {
+  60 |     const tituloAleatorio = `Livro Teste ${Date.now()}`;
+  61 | 
+  62 |     await page.goto("/livros");
+  63 | 
+  64 |     await page.getByTitle("Adicionar novo livro").click();
+  65 | 
+  66 |     const inputs = page.locator("input");
+  67 | 
+  68 |     await inputs.nth(1).fill(tituloAleatorio);
+  69 |     await inputs.nth(2).fill("Autor Teste");
+  70 | 
+  71 |     await page.getByRole("button", { name: "Adicionar Livro" }).click();
+  72 | 
+  73 |     await expect(page.getByText(tituloAleatorio).first()).toBeVisible();
+  74 | 
+  75 |     page.on("dialog", async (dialog) => {
+  76 |       await dialog.accept();
+  77 |     });
+  78 | 
+  79 |     await page.getByTitle("Excluir livro").last().click();
+  80 | 
+> 81 |     await expect(page.getByText(tituloAleatorio)).not.toBeVisible();
+     |                                                       ^ Error: expect(locator).not.toBeVisible() failed
+  82 |   });
+  83 | });
+  84 | 
+```

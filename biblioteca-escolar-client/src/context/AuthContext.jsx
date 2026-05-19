@@ -1,9 +1,9 @@
-import { createContext, useContext, useMemo, useState, useEffect } from 'react';
-import * as authService from '../services/authService';
+import { createContext, useContext, useMemo, useState, useEffect } from "react";
+import * as authService from "../services/authService";
 
 const AuthContext = createContext(null);
 
-const STORAGE_USER = 'usuario';
+const STORAGE_USER = "usuario";
 
 function loadStoredUser() {
   try {
@@ -16,11 +16,11 @@ function loadStoredUser() {
 
 export function AuthProvider({ children }) {
   const [usuario, setUsuario] = useState(loadStoredUser);
-  const [token, setToken] = useState(() => localStorage.getItem('token'));
+  const [token, setToken] = useState(() => localStorage.getItem("token"));
 
   useEffect(() => {
-    if (token) localStorage.setItem('token', token);
-    else localStorage.removeItem('token');
+    if (token) localStorage.setItem("token", token);
+    else localStorage.removeItem("token");
   }, [token]);
 
   useEffect(() => {
@@ -35,8 +35,8 @@ export function AuthProvider({ children }) {
     return data;
   };
 
-  const register = async (nome, email, senha) => {
-    const user = await authService.register(nome, email, senha);
+  const register = async (nome, email, senha, tipo) => {
+    const user = await authService.register(nome, email, senha, tipo);
     return user;
   };
 
@@ -50,7 +50,7 @@ export function AuthProvider({ children }) {
       usuario,
       token,
       isAuthenticated: Boolean(token && usuario),
-      isAdmin: usuario?.tipo === 'admin',
+      isAdmin: usuario?.tipo === "admin",
       login,
       register,
       logout,
@@ -63,6 +63,6 @@ export function AuthProvider({ children }) {
 
 export function useAuth() {
   const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuth deve ser usado dentro de AuthProvider');
+  if (!ctx) throw new Error("useAuth deve ser usado dentro de AuthProvider");
   return ctx;
 }

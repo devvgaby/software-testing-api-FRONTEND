@@ -15,12 +15,14 @@ export function AppRoutes() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/cadastro" element={<RegisterPage />} />
 
-      <Route path="/" element={<MobileShell />}>
-        <Route index element={<DashboardPage />} />
-        <Route path="livros" element={<LivrosPage />} />
-        <Route path="emprestimos" element={<EmprestimosPage />} />
-        <Route path="multas" element={<MultasPage />} />
-        <Route path="usuarios" element={<UsuariosPage /> }/>
+       <Route element={<RequireAuth />}>
+        <Route path="/" element={<MobileShell />}>
+          <Route index element={<DashboardPage />} />
+          <Route path="livros" element={<LivrosPage />} />
+          <Route path="emprestimos" element={<EmprestimosPage />} />
+          <Route path="multas" element={<MultasPage />} />
+          <Route path="usuarios" element={<UsuariosPage />} />
+        </Route>
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

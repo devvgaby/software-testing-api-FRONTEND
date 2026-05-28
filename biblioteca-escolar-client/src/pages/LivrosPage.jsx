@@ -1,71 +1,17 @@
 import { useEffect, useState, useCallback } from "react";
 import * as livroService from "../services/livroService";
-
-const IconEdit = () => (
-  <svg
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.75"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M17 3l4 4-7 7H10v-4l7-7z" />
-    <path d="M4 20h16" />
-  </svg>
-);
-
-const IconDelete = () => (
-  <svg
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.75"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M4 7h16" />
-    <path d="M10 11v6" />
-    <path d="M14 11v6" />
-    <path d="M5 7l1 13a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-13" />
-    <path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3" />
-  </svg>
-);
-
-const IconPlus = () => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M12 5v14M5 12h14" />
-  </svg>
-);
-
-const IconSearch = () => (
-  <svg
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <circle cx="11" cy="11" r="8" />
-    <path d="m21 21-4.3-4.3" />
-  </svg>
-);
+import {
+  Plus,
+  Search,
+  Edit2,
+  Trash2,
+  X,
+  BookOpen,
+  User,
+  Hash,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 
 export function LivrosPage() {
   const [livros, setLivros] = useState([]);
@@ -76,15 +22,21 @@ export function LivrosPage() {
   const [form, setForm] = useState({ titulo: "", autor: "" });
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [confirmacao, setConfirmacao] = useState(null);
+
+  // Paginação
+  const [paginaAtual, setPaginaAtual] = useState(1);
+  const itensPorPagina = 5;
 
   const carregar = useCallback(async () => {
     setIsLoading(true);
     try {
       const data = await livroService.listarLivros();
-      setLivros(Array.isArray(data) ? data : [data]);
+      setLivros(Array.isArray(data) ? data : data ? [data] : []);
       setErro("");
+      setPaginaAtual(1);
     } catch (e) {
-      setErro("Não foi possível carregar os livros. Tente novamente.");
+      setErro("Não foi possível carregar os livros.");
     } finally {
       setIsLoading(false);
     }
@@ -94,7 +46,20 @@ export function LivrosPage() {
     carregar();
   }, [carregar]);
 
-  const salvar = async () => {
+  // Lógica de Paginação
+  const totalPaginas = Math.ceil(livros.length / itensPorPagina);
+  const indexUltimoItem = paginaAtual * itensPorPagina;
+  const indexPrimeiroItem = indexUltimoItem - itensPorPagina;
+  const itensAtuais = livros.slice(indexPrimeiroItem, indexUltimoItem);
+
+  const mudarPagina = (onde) => {
+    if (onde === "prox" && paginaAtual < totalPaginas)
+      setPaginaAtual((prev) => prev + 1);
+    if (onde === "ant" && paginaAtual > 1) setPaginaAtual((prev) => prev - 1);
+  };
+
+  const salvar = async (e) => {
+    e.preventDefault();
     if (!form.titulo.trim() || !form.autor.trim()) {
       setErro("Preencha todos os campos.");
       return;
@@ -111,39 +76,41 @@ export function LivrosPage() {
       setErro("");
       carregar();
     } catch (e) {
-      setErro("Erro ao salvar. Verifique os dados e tente novamente.");
+      setErro("Erro ao salvar o livro.");
     } finally {
       setIsSaving(false);
     }
   };
 
   const remover = async (id, titulo) => {
-    if (
-      window.confirm(
-        `Deseja realmente excluir "${titulo}"? Esta ação não pode ser desfeita.`,
-      )
-    ) {
-      try {
-        await livroService.removerLivro(id);
-        carregar();
-      } catch {
-        setErro("Erro ao excluir livro.");
-      }
-    }
+    setConfirmacao({
+      msg: `Deseja realmente excluir o livro "${titulo}"?`,
+      action: async () => {
+        try {
+          await livroService.deletarLivro(id);
+          carregar();
+        } catch {
+          setErro("Erro ao excluir livro.");
+        } finally {
+          setConfirmacao(null);
+        }
+      },
+    });
   };
 
   const buscar = async () => {
-    if (!buscaId.trim()) {
-      return carregar();
-    }
+    if (!buscaId.trim()) return carregar();
+
     setIsLoading(true);
     try {
       const d = await livroService.buscarLivroPorId(buscaId.trim());
       setLivros(d ? [d] : []);
-      if (!d) setErro("Nenhum livro encontrado com este ID.");
+      if (!d) setErro("Livro não encontrado.");
       else setErro("");
+      setPaginaAtual(1);
     } catch {
-      setErro("Erro na busca. Verifique o ID informado.");
+      setErro("Erro na busca pelo ID.");
+      setLivros([]);
     } finally {
       setIsLoading(false);
     }
@@ -174,162 +141,248 @@ export function LivrosPage() {
   };
 
   return (
-    <div style={styles.container}>
-      {/* Header */}
-      <div style={styles.header}>
-        <h1 style={styles.title}>Biblioteca</h1>
-        <p style={styles.subtitle}>Gerencie seu acervo de livros</p>
+    <div className="stack">
+      <div className="page-intro">
+        <h2>Acervo de Livros</h2>
+        <p>Gerenciamento completo da biblioteca</p>
       </div>
 
-      {/* Error Toast */}
       {erro && (
-        <div style={styles.errorToast}>
+        <div
+          className="alert alert--error"
+          style={{ display: "flex", justifyContent: "space-between" }}
+        >
           <span>{erro}</span>
-          <button onClick={() => setErro("")} style={styles.closeError}>
-            ×
+          <button onClick={() => setErro("")} className="btn-icon">
+            <X size={16} />
           </button>
         </div>
       )}
 
-      {/* Search Bar */}
-      <div style={styles.searchCard}>
-        <div style={styles.searchWrapper}>
-          <div style={styles.searchIcon}>
-            <IconSearch />
-          </div>
+      <div className="search-bar">
+        <div className="form-field" style={{ flex: 1 }}>
           <input
-            style={styles.searchInput}
-            placeholder="Buscar por ID do livro..."
+            placeholder="Buscar por ID..."
             value={buscaId}
             onChange={(e) => setBuscaId(e.target.value)}
             onKeyPress={handleKeyPress}
           />
-          <button
-            onClick={buscar}
-            style={styles.searchButton}
-            disabled={isLoading}
-          >
-            {isLoading ? "Buscando..." : "Buscar"}
-          </button>
         </div>
+        <button
+          onClick={buscar}
+          className="btn btn--primary"
+          style={{ padding: "0 1rem" }}
+        >
+          <Search size={18} />
+        </button>
       </div>
 
-      {/* Table */}
-      <div style={styles.tableContainer}>
-        <table style={styles.table}>
-          <thead>
-            <tr>
-              <th style={styles.th}>ID</th>
-              <th style={styles.th}>Título</th>
-              <th style={styles.th}>Autor</th>
-              <th style={{ ...styles.th, textAlign: "right" }}>Ações</th>{" "}
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading && livros.length === 0 ? (
-              <tr>
-                <td colSpan="4" style={styles.emptyState}>
-                  <div style={styles.loadingSpinner} />
-                  <span>Carregando livros...</span>
-                </td>
-              </tr>
-            ) : livros.length === 0 ? (
-              <tr>
-                <td colSpan="4" style={styles.emptyState}>
-                  <span>Nenhum livro encontrado.</span>
-                </td>
-              </tr>
-            ) : (
-              livros.map((l) => (
-                <tr key={l.id} style={styles.tr}>
-                  <td style={styles.td} data-label="ID">
-                    #{l.id}
-                  </td>
-                  <td style={styles.tdTitle} data-label="Título">
-                    <strong>{l.titulo}</strong>
-                  </td>
-                  <td style={styles.td} data-label="Autor">
-                    {l.autor}
-                  </td>
-                  <td style={styles.tdActions} data-label="Ações">
-                    <button
-                      onClick={() => abrirModalEditar(l)}
-                      style={styles.btnEdit}
-                      title="Editar livro"
-                    >
-                      <IconEdit />
-                    </button>
-                    <button
-                      onClick={() => remover(l.id, l.titulo)}
-                      style={styles.btnDel}
-                      title="Excluir livro"
-                    >
-                      <IconDelete />
-                    </button>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+      {isLoading ? (
+        <p className="empty-hint">Carregando acervo...</p>
+      ) : livros.length === 0 ? (
+        <p className="empty-hint">Nenhum livro disponível.</p>
+      ) : (
+        <>
+          <div className="list-cards">
+            {itensAtuais.map((l) => (
+              <div key={l.id} className="list-card">
+                <div className="list-card__top">
+                  <div>
+                    <h3 className="list-card__title">{l.titulo}</h3>
+                    <div className="list-card__meta">
+                      <User
+                        size={14}
+                        style={{ marginRight: "4px", verticalAlign: "middle" }}
+                      />
+                      {l.autor}
+                    </div>
+                  </div>
+                  <div className="badge badge--aluno">#{l.id}</div>
+                </div>
 
-      {/* FAB Button */}
-      <button
-        onClick={abrirModalNovo}
-        style={styles.fab}
-        title="Adicionar novo livro"
-      >
-        <IconPlus />
+                <div className="list-card__row">
+                  <span>Disponível para empréstimo em breve.</span>
+                </div>
+
+                <div className="list-card__actions">
+                  <button
+                    onClick={() => abrirModalEditar(l)}
+                    className="btn btn--secondary btn--sm"
+                  >
+                    <Edit2 size={16} /> Editar
+                  </button>
+                  <button
+                    onClick={() => remover(l.id, l.titulo)}
+                    className="btn btn--danger btn--sm"
+                  >
+                    <Trash2 size={16} /> Excluir
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {totalPaginas > 1 && (
+            <div
+              className="pagination"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginTop: "1.5rem",
+                padding: "0 0.5rem",
+              }}
+            >
+              <button
+                onClick={() => mudarPagina("ant")}
+                disabled={paginaAtual === 1}
+                className="btn btn--secondary btn--sm"
+                style={{ padding: "0.5rem" }}
+              >
+                <ChevronLeft size={20} />
+              </button>
+
+              <span
+                className="text-muted"
+                style={{ fontSize: "0.9rem", fontWeight: "500" }}
+              >
+                Página {paginaAtual} de {totalPaginas}
+              </span>
+
+              <button
+                onClick={() => mudarPagina("prox")}
+                disabled={paginaAtual === totalPaginas}
+                className="btn btn--secondary btn--sm"
+                style={{ padding: "0.5rem" }}
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
+          )}
+        </>
+      )}
+
+      <button onClick={abrirModalNovo} className="fab">
+        <Plus size={28} />
       </button>
 
-      {/* Modal */}
       {modalAberto && (
-        <div style={styles.overlay} onClick={fecharModal}>
-          <div style={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <div style={styles.modalHeader}>
-              <h3 style={styles.modalTitle}>
-                {editando ? "Editar Livro" : "Adicionar Novo Livro"}
+        <div className="overlay" onClick={fecharModal}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3 className="modal-title">
+                {editando ? "Editar Livro" : "Novo Livro"}
               </h3>
-              <button onClick={fecharModal} style={styles.modalClose}>
-                ×
+              <button onClick={fecharModal} className="modal-close">
+                <X size={20} />
               </button>
             </div>
-            <div style={styles.modalBody}>
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>Título</label>
-                <input
-                  style={styles.modalInput}
-                  placeholder="Ex: O Senhor dos Anéis"
-                  value={form.titulo}
-                  onChange={(e) => setForm({ ...form, titulo: e.target.value })}
-                  autoFocus
-                />
+            <form onSubmit={salvar}>
+              <div className="modal-body form-stack">
+                <div className="form-field">
+                  <label>Título do Livro</label>
+                  <input
+                    placeholder="Ex: Dom Casmurro"
+                    name="titulo"
+                    value={form.titulo}
+                    onChange={(e) =>
+                      setForm({ ...form, titulo: e.target.value })
+                    }
+                    required
+                    autoFocus
+                  />
+                </div>
+                <div className="form-field">
+                  <label>Autor</label>
+                  <input
+                    placeholder="Ex: Machado de Assis"
+                    name="autor"
+                    value={form.autor}
+                    onChange={(e) =>
+                      setForm({ ...form, autor: e.target.value })
+                    }
+                    required
+                  />
+                </div>
               </div>
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>Autor</label>
-                <input
-                  style={styles.modalInput}
-                  placeholder="Ex: J.R.R. Tolkien"
-                  value={form.autor}
-                  onChange={(e) => setForm({ ...form, autor: e.target.value })}
-                />
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  onClick={fecharModal}
+                  className="btn btn--secondary"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  className="btn btn--primary"
+                  disabled={isSaving}
+                >
+                  {isSaving ? "Salvando..." : "Confirmar"}
+                </button>
               </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {confirmacao && (
+        <div className="overlay" onClick={() => setConfirmacao(null)}>
+          <div
+            className="modal"
+            style={{ maxWidth: "360px" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              className="modal-body"
+              style={{ textAlign: "center", padding: "2rem 1.5rem" }}
+            >
+              <div
+                style={{
+                  width: "64px",
+                  height: "64px",
+                  borderRadius: "32px",
+                  background: "var(--danger-soft)",
+                  color: "var(--danger)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0 auto 1.25rem",
+                }}
+              >
+                <Trash2 size={32} />
+              </div>
+              <h3 style={{ margin: "0 0 0.5rem", fontSize: "1.2rem" }}>
+                Confirmar exclusão?
+              </h3>
+              <p
+                className="text-muted"
+                style={{ margin: 0, fontSize: "0.95rem" }}
+              >
+                {confirmacao.msg}
+              </p>
             </div>
-            <div style={styles.modalFooter}>
-              <button onClick={fecharModal} style={styles.btnCancel}>
-                Cancelar
+            <div
+              className="modal-footer"
+              style={{
+                justifyContent: "center",
+                padding: "0 1.5rem 1.5rem",
+                background: "transparent",
+              }}
+            >
+              <button
+                className="btn btn--secondary"
+                style={{ flex: 1 }}
+                onClick={() => setConfirmacao(null)}
+              >
+                Voltar
               </button>
               <button
-                onClick={salvar}
-                style={styles.btnSave}
-                disabled={isSaving}
+                className="btn btn--danger"
+                style={{ flex: 1 }}
+                onClick={confirmacao.action}
               >
-                {isSaving
-                  ? "Salvando..."
-                  : editando
-                    ? "Salvar Alterações"
-                    : "Adicionar Livro"}
+                Excluir
               </button>
             </div>
           </div>
@@ -338,315 +391,3 @@ export function LivrosPage() {
     </div>
   );
 }
-
-const styles = {
-  container: {
-    minHeight: "100vh",
-    background: "#f8fafc",
-    fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
-    padding: "2rem 1rem",
-  },
-  header: {
-    textAlign: "center",
-    marginBottom: "2rem",
-  },
-  title: {
-    fontSize: "2rem",
-    fontWeight: "600",
-    color: "#0f172a",
-    letterSpacing: "-0.025em",
-    marginBottom: "0.25rem",
-  },
-  subtitle: {
-    fontSize: "0.875rem",
-    color: "#475569",
-  },
-  errorToast: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    background: "#fef2f2",
-    border: "1px solid #fee2e2",
-    borderRadius: "12px",
-    padding: "0.75rem 1rem",
-    marginBottom: "1.5rem",
-    maxWidth: "600px",
-    marginLeft: "auto",
-    marginRight: "auto",
-    color: "#dc2626",
-    fontSize: "0.875rem",
-  },
-  closeError: {
-    background: "none",
-    border: "none",
-    fontSize: "1.25rem",
-    cursor: "pointer",
-    color: "#dc2626",
-    padding: "0 0.25rem",
-  },
-  searchCard: {
-    maxWidth: "600px",
-    margin: "0 auto 2rem auto",
-    background: "#fff",
-    borderRadius: "16px",
-    boxShadow: "0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03)",
-    padding: "0.5rem",
-  },
-  searchWrapper: {
-    display: "flex",
-    alignItems: "center",
-    gap: "0.5rem",
-    background: "#fff",
-    borderRadius: "12px",
-    border: "1px solid #e2e8f0",
-    transition: "all 0.2s ease",
-  },
-  searchIcon: {
-    display: "flex",
-    alignItems: "center",
-    paddingLeft: "0.75rem",
-    color: "#94a3b8",
-  },
-  searchInput: {
-    flex: 1,
-    padding: "0.75rem 0",
-    border: "none",
-    fontSize: "0.875rem",
-    outline: "none",
-    background: "transparent",
-    color: "#0f172a",
-  },
-  searchButton: {
-    background: "#f1f5f9",
-    border: "none",
-    borderRadius: "8px",
-    padding: "0.5rem 1rem",
-    fontSize: "0.8125rem",
-    fontWeight: "500",
-    color: "#1e293b",
-    cursor: "pointer",
-    transition: "all 0.2s ease",
-    marginRight: "0.5rem",
-  },
-  tableContainer: {
-    maxWidth: "900px",
-    margin: "0 auto",
-    background: "#fff",
-    borderRadius: "20px",
-    boxShadow:
-      "0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03)",
-    overflowX: "auto",
-  },
-  table: {
-    width: "100%",
-    borderCollapse: "collapse",
-    minWidth: "500px",
-  },
-  th: {
-    textAlign: "left",
-    padding: "1rem 1.25rem",
-    fontSize: "0.75rem",
-    fontWeight: "600",
-    textTransform: "uppercase",
-    letterSpacing: "0.05em",
-    color: "#64748b",
-    borderBottom: "1px solid #e2e8f0",
-    background: "#fefefe",
-  },
-  tr: {
-    transition: "background 0.15s ease",
-  },
-  td: {
-    padding: "1rem 1.25rem",
-    fontSize: "0.875rem",
-    color: "#334155",
-    borderBottom: "1px solid #f1f5f9",
-  },
-  tdTitle: {
-    padding: "1rem 1.25rem",
-    fontSize: "0.875rem",
-    fontWeight: "500",
-    color: "#0f172a",
-    borderBottom: "1px solid #f1f5f9",
-  },
-  tdActions: {
-    padding: "1rem 1.25rem",
-    textAlign: "right",
-    borderBottom: "1px solid #f1f5f9",
-    whiteSpace: "nowrap",
-  },
-  btnEdit: {
-    background: "none",
-    border: "none",
-    color: "#3b82f6",
-    cursor: "pointer",
-    padding: "0.5rem",
-    borderRadius: "8px",
-    transition: "all 0.15s ease",
-    marginRight: "0.25rem",
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  btnDel: {
-    background: "none",
-    border: "none",
-    color: "#ef4444",
-    cursor: "pointer",
-    padding: "0.5rem",
-    borderRadius: "8px",
-    transition: "all 0.15s ease",
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  fab: {
-    position: "fixed",
-    bottom: "5rem",
-    right: "2rem",
-    width: "52px",
-    height: "52px",
-    borderRadius: "26px",
-    background: "#3b82f6",
-    color: "#fff",
-    border: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    boxShadow: "0 8px 20px rgba(59,130,246,0.3)",
-    cursor: "pointer",
-    transition: "all 0.2s ease",
-    zIndex: 100,
-  },
-  overlay: {
-    position: "fixed",
-    inset: 0,
-    background: "rgba(15,23,42,0.6)",
-    backdropFilter: "blur(4px)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 200,
-    padding: "1rem",
-  },
-  modal: {
-    background: "#fff",
-    borderRadius: "24px",
-    width: "100%",
-    maxWidth: "480px",
-    boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)",
-    overflow: "hidden",
-  },
-  modalHeader: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "1.25rem 1.5rem",
-    borderBottom: "1px solid #f1f5f9",
-  },
-  modalTitle: {
-    fontSize: "1.125rem",
-    fontWeight: "600",
-    color: "#0f172a",
-    margin: 0,
-  },
-  modalClose: {
-    background: "none",
-    border: "none",
-    fontSize: "1.5rem",
-    cursor: "pointer",
-    color: "#94a3b8",
-    padding: "0",
-    lineHeight: 1,
-  },
-  modalBody: {
-    padding: "1.5rem",
-  },
-  inputGroup: {
-    marginBottom: "1rem",
-  },
-  label: {
-    display: "block",
-    fontSize: "0.8125rem",
-    fontWeight: "500",
-    color: "#334155",
-    marginBottom: "0.375rem",
-  },
-  modalInput: {
-    width: "100%",
-    padding: "0.75rem",
-    border: "1px solid #e2e8f0",
-    borderRadius: "12px",
-    fontSize: "0.875rem",
-    outline: "none",
-    transition: "all 0.2s ease",
-    boxSizing: "border-box",
-    fontFamily: "inherit",
-  },
-  modalFooter: {
-    display: "flex",
-    justifyContent: "flex-end",
-    gap: "0.75rem",
-    padding: "1rem 1.5rem 1.5rem",
-    borderTop: "1px solid #f1f5f9",
-  },
-  btnSave: {
-    background: "#3b82f6",
-    color: "#fff",
-    border: "none",
-    padding: "0.625rem 1.25rem",
-    borderRadius: "40px",
-    fontSize: "0.8125rem",
-    fontWeight: "500",
-    cursor: "pointer",
-    transition: "all 0.2s ease",
-  },
-  btnCancel: {
-    background: "#fff",
-    border: "1px solid #e2e8f0",
-    padding: "0.625rem 1.25rem",
-    borderRadius: "40px",
-    fontSize: "0.8125rem",
-    fontWeight: "500",
-    cursor: "pointer",
-    color: "#475569",
-    transition: "all 0.2s ease",
-  },
-  emptyState: {
-    textAlign: "center",
-    padding: "3rem 1rem",
-    color: "#64748b",
-    fontSize: "0.875rem",
-    borderBottom: "1px solid #f1f5f9",
-  },
-  loadingSpinner: {
-    width: "24px",
-    height: "24px",
-    border: "2px solid #e2e8f0",
-    borderTopColor: "#3b82f6",
-    borderRadius: "50%",
-    animation: "spin 0.8s linear infinite",
-    margin: "0 auto 0.75rem auto",
-  },
-};
-
-const styleSheet = document.createElement("style");
-styleSheet.textContent = `
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-  button {
-    transition: transform 0.1s ease, background 0.2s ease;
-  }
-  button:active {
-    transform: scale(0.96);
-  }
-  input:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
-  }
-  tr:hover {
-    background: #fefefe;
-  }
-`;
-document.head.appendChild(styleSheet);

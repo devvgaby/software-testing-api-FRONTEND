@@ -2,15 +2,12 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Gerenciamento de Empréstimos (E2E)", () => {
   test.beforeEach(async ({ page }) => {
-    // 1. Vai para a página inicial (Login)
     await page.goto("/");
 
-    // 2. Realiza o login (usando os dados do nosso mock de admin)
     await page.fill('input[type="email"]', "admin@sistema.com");
     await page.fill('input[type="password"]', "123456");
     await page.click('button[type="submit"]');
 
-    // 3. Espera chegar no Dashboard (garante que logou)
     await expect(page).toHaveURL(/\/dashboard|$/);
   });
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { Eye, EyeOff } from 'lucide-react';
 
 export function LoginPage() {
   const { login, isAuthenticated } = useAuth();
@@ -10,6 +11,7 @@ export function LoginPage() {
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [mostrarSenha, setMostrarSenha] = useState(false);
   const [erro, setErro] = useState('');
 
   useEffect(() => {
@@ -47,14 +49,24 @@ export function LoginPage() {
           </div>
           <div className="form-field">
             <label htmlFor="login-senha">Senha</label>
-            <input
-              id="login-senha"
-              type="password"
-              autoComplete="current-password"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
-              required
-            />
+            <div className="password-wrapper">
+              <input
+                id="login-senha"
+                type={mostrarSenha ? 'text' : 'password'}
+                autoComplete="current-password"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={() => setMostrarSenha(!mostrarSenha)}
+                aria-label={mostrarSenha ? 'Ocultar senha' : 'Ver senha'}
+              >
+                {mostrarSenha ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
+            </div>
           </div>
           {erro && (
             <p className="alert alert--error" role="alert">

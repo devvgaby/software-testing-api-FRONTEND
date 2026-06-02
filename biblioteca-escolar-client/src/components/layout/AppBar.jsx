@@ -1,15 +1,15 @@
-import { useMemo } from "react";
-import { useLocation } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
-import { useTheme } from "../../context/ThemeContext";
-import { Sun, Moon, LogOut } from "lucide-react";
+import { useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
+import { Sun, Moon, LogOut } from 'lucide-react';
 
 const TITLES = [
-  { match: /^\/$/, title: "Início" },
-  { match: /^\/livros\/?$/, title: "Livros" },
-  { match: /^\/emprestimos\/?$/, title: "Empréstimos" },
-  { match: /^\/multas\/?$/, title: "Multas" },
-  { match: /^\/usuarios\/?$/, title: "Equipe" },
+  { match: /^\/$/, title: 'Início' },
+  { match: /^\/livros\/?$/, title: 'Livros' },
+  { match: /^\/emprestimos\/?$/, title: 'Empréstimos' },
+  { match: /^\/multas\/?$/, title: 'Multas' },
+  { match: /^\/usuarios\/?$/, title: 'Equipe' },
 ];
 
 export function AppBar() {
@@ -19,7 +19,7 @@ export function AppBar() {
 
   const title = useMemo(() => {
     const found = TITLES.find((t) => t.match.test(pathname));
-    return found?.title ?? "Biblioteca";
+    return found?.title ?? 'Biblioteca';
   }, [pathname]);
 
   const handleLogout = () => {
@@ -31,16 +31,13 @@ export function AppBar() {
       <div className="app-bar__inner">
         <h1 className="app-bar__title"></h1>
         <div className="app-bar__actions">
-          <span className="app-bar__user" title={usuario?.email}>
-            {usuario?.nome?.split?.(" ")?.[0] ?? "—"}
-          </span>
           <button
             type="button"
             className="theme-toggle"
             onClick={toggleTheme}
             aria-label="Alternar tema"
           >
-            {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+            {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
           </button>
           <button
             type="button"

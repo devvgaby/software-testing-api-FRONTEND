@@ -52,7 +52,7 @@ test.describe("Gerenciamento de Usuários (E2E)", () => {
       String(novoUsuario.id),
     );
 
-    await page.keyboard.press("Enter");
+    await page.locator(".search-bar button").click();
 
     await expect(page.getByText(nomeAleatorio)).toBeVisible();
   });

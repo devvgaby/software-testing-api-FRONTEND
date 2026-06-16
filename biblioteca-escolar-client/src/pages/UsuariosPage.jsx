@@ -65,7 +65,6 @@ export function UsuariosPage() {
     if (dir === "ant" && pagina > 1) setPagina((p) => p - 1);
   };
 
-  // 🔎 igual livros (SEM backend obrigatório)
   const buscar = async () => {
     if (!buscaId.trim()) return carregar();
 
@@ -112,7 +111,7 @@ export function UsuariosPage() {
       action: async () => {
         try {
           await usuarioService.deletarUsuario(id);
-          carregar();
+          await carregar();
         } catch {
           setErro("Erro ao excluir.");
         } finally {

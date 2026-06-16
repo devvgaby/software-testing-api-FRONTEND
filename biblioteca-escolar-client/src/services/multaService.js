@@ -5,10 +5,6 @@ export async function listarMultas() {
   return data;
 }
 
-export async function quitarMulta(id) {
-  const { data } = await api.put(`/multas/quitar/${id}`);
-  return data;
-}
 
 export async function criarMulta(payload) {
   const { data } = await api.post('/multas', payload);

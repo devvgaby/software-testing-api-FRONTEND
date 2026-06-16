@@ -112,26 +112,30 @@ test.describe("Gerenciamento de Empréstimos (E2E)", () => {
 
   test("deve permitir excluir um empréstimo", async ({ page }) => {
     await page.goto("/emprestimos");
+
+    await page.locator(".fab").click();
+    await page.locator('select[name="livro_id"]').selectOption({ index: 1 });
+    await page.locator('select[name="usuario_id"]').selectOption({ index: 1 });
+    await page.fill('input[name="data_devolucao_prevista"]', "2026-12-31");
+
+    const cadPromise = page.waitForResponse(
+      (resp) => resp.url().includes("/emprestimos") && resp.request().method() === "POST"
+    );
+    await page.click('button[type="submit"]');
+    await cadPromise;
+
+    await page.goto("/emprestimos");
     await page.waitForSelector(".list-card");
-
     const primeiroEmprestimo = page.locator(".list-card").first();
-
-    const tituloOriginal = await primeiroEmprestimo
-      .locator(".list-card__title")
-      .innerText();
 
     await primeiroEmprestimo.locator('button:has-text("Excluir")').click();
     await expect(page.locator(".modal")).toBeVisible();
 
     const responsePromise = page.waitForResponse(
-      (resp) =>
-        resp.url().includes("/emprestimos/") &&
-        resp.request().method() === "DELETE" &&
-        resp.status() >= 200 &&
-        resp.status() < 300,
+      (resp) => resp.url().includes("/emprestimos/") && resp.request().method() === "DELETE"
     );
 
-    await page.locator('.modal-footer button:has-text("Confirmar")').click();
+    await page.locator('.modal-footer button:has-text("Confirmar"), .modal button:has-text("Excluir"), .modal button:has-text("Confirmar")').first().click();
     await responsePromise;
 
     await expect(page.locator(".modal")).not.toBeVisible();

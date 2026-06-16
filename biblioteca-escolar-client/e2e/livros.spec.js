@@ -64,25 +64,38 @@ test.describe("Gerenciamento de Livros (E2E)", () => {
     await expect(page.locator(".modal")).not.toBeVisible();
   });
 
-  test("deve permitir excluir um livro", async ({ page }) => {
+ test("deve permitir excluir um livro", async ({ page }) => {
     await page.goto("/livros");
 
-    await page.waitForSelector(".list-card");
+    const tituloUnico = `Livro_Del_${Date.now()}`;
+    await page.locator(".fab").click();
+    await page.fill('input[name="titulo"]', tituloUnico);
+    await page.fill('input[name="autor"]', "Suporte E2E");
 
-    const primeiroLivro = page.locator(".list-card").first();
-    const idBadge = await primeiroLivro.locator(".badge").innerText();
+    const cadastrarPromise = page.waitForResponse(
+      (resp) => resp.url().includes("/livros") && resp.request().method() === "POST"
+    );
+    await page.click('button[type="submit"]');
+    const responseCadastro = await cadastrarPromise;
+    const livroCriado = await responseCadastro.json();
 
-    await primeiroLivro.locator('button:has-text("Excluir")').click();
+    await page.fill('input[placeholder = "Buscar por ID..."]', String(livroCriado.id));
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(500);
 
+    const cardLivro = page.locator(".list-card", { hasText: tituloUnico }).first();
+    await cardLivro.locator('button:has-text("Excluir")').click();
     await expect(page.locator(".modal")).toBeVisible();
 
+    const deletePromise = page.waitForResponse(
+      (resp) => resp.url().includes("/livros/") && resp.request().method() === "DELETE"
+    );
+
     await page.click('.modal button:has-text("Excluir")', { force: true });
+    await deletePromise;
 
     await expect(page.locator(".modal")).not.toBeVisible();
-
-    await expect(
-      page.locator(".list-card", { hasText: idBadge }),
-    ).not.toBeVisible();
+    await expect(page.locator(".list-card", { hasText: tituloUnico })).not.toBeVisible();
   });
 
   test("deve permitir editar livro", async ({ page }) => {

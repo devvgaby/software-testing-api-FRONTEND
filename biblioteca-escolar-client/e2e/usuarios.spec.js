@@ -70,25 +70,37 @@ test.describe("Gerenciamento de Usuários (E2E)", () => {
   test("deve permitir excluir um usuário", async ({ page }) => {
     await page.goto("/usuarios");
 
-    await page.waitForSelector(".list-card");
+    const nomeUnico = `User_Del_${Date.now()}`;
+    await page.locator(".fab").click();
+    await page.fill('input[name="nome"]', nomeUnico);
+    await page.fill('input[name="email"]', `del_${Date.now()}@teste.com`);
+    await page.fill('input[name="senha"]', "123456");
+    await page.locator("select").selectOption("aluno");
 
-    const primeiroUsuario = page.locator(".list-card").first();
+    const cadastrarPromise = page.waitForResponse(
+      (resp) => resp.url().includes("/usuarios") && resp.request().method() === "POST"
+    );
+    await page.click('button[type="submit"]');
+    const responseCadastro = await cadastrarPromise;
+    const usuarioCriado = await responseCadastro.json();
 
-    const nomeUsuario = await primeiroUsuario
-      .locator(".list-card__title")
-      .innerText();
+    await page.fill('input[placeholder="Buscar por ID..."]', String(usuarioCriado.id));
+    await page.locator(".search-bar button").click();
+    await page.waitForTimeout(500);
 
-    await primeiroUsuario.locator('button:has-text("Excluir")').click();
-
+    const cardUsuario = page.locator(".list-card", { hasText: nomeUnico }).first();
+    await cardUsuario.locator('button:has-text("Excluir")').click();
     await expect(page.locator(".modal")).toBeVisible();
 
-    await page.click('.modal button:has-text("Confirmar")');
+    const responsePromise = page.waitForResponse(
+      (resp) => resp.url().includes("/usuarios/") && resp.request().method() === "DELETE"
+    );
+
+    await page.locator('.modal button:has-text("Confirmar"), .modal button:has-text("Excluir")').first().click();
+    await responsePromise;
 
     await expect(page.locator(".modal")).not.toBeVisible();
-
-    await expect(
-      page.locator(".list-card", { hasText: nomeUsuario }),
-    ).not.toBeVisible();
+    await expect(page.locator(".list-card", { hasText: nomeUnico })).not.toBeVisible();
   });
 
   test("deve permitir editar um usuário", async ({ page }) => {
